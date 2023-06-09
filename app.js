@@ -128,6 +128,7 @@ const fetchPokeData = (id) => {
 
 const handRightButtonClick = () =>{
     if (nextUrl){
+
         fetchPokeList(nextUrl);
     }
 

@@ -102,7 +102,7 @@ const fetchPokeData = (id) => {
             let isFirstType = true;
             mainScreen.classList.add(dataFirstType['type']['name']);
             if (dataSecondType){
-                setInterval(() => {
+                setTimeout(() => {
                     if (isFirstType) {
                         mainScreen.classList.remove(dataFirstType['type']['name']);
                         mainScreen.classList.add(dataSecondType['type']['name']);

@@ -10,6 +10,10 @@ const pokeWeight = document.querySelector('.poke-weight');
 const pokeListItems = document.querySelectorAll('.list-item');
 const pokeLeftButton = document.querySelector('.left-button');
 const pokeRightButton = document.querySelector('.right-button');
+const pokeBButton = document.querySelector('.buttons__button');
+const pokeAButton = document.querySelector('.buttons__button1');
+
+
 
 
 // CONSTANTS AND VARIABLES
@@ -73,6 +77,8 @@ const fetchPokeData = (id) => {
 
     // get data for the left side of the pokedex
 
+
+
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
         .then(res => res.json())
         .then(data => {
@@ -97,7 +103,13 @@ const fetchPokeData = (id) => {
             pokeWeight.textContent = data['weight'];
             pokeHeight.textContent = data['height'];
             pokeFrontImage.src = data['sprites']['front_default'] || '';
-            pokeBackImage.src = data['sprites']['back_default'] || '';
+            if (data['sprites']['back_default']===null){
+                pokeBackImage.classList.add('hide');
+            } else{
+                pokeBackImage.classList.remove('hide');
+                pokeBackImage.src = data['sprites']['back_default'] || '';
+
+            }
 
             let isFirstType = true;
             mainScreen.classList.add(dataFirstType['type']['name']);
@@ -148,6 +160,11 @@ const handleListItemClick = (e) => {
     fetchPokeData(id);
 }
 
+const handle_AB_ButtonClick = () => {
+    const idrand = Math.floor(Math.random() * 1000) + 1;
+    fetchPokeData(idrand);
+}
+
 function toTitleCase(str) {
     return str.toLowerCase().split(' ').map(function (word) {
         return (word.charAt(0).toUpperCase() + word.slice(1));
@@ -162,6 +179,10 @@ pokeLeftButton.addEventListener('click', handleLeftButtonClick);
 
 pokeRightButton.addEventListener('click', handRightButtonClick);
 
+pokeBButton.addEventListener('click', handle_AB_ButtonClick);
+
+pokeAButton.addEventListener('click',handle_AB_ButtonClick)
+
 for (const pokeListItem of pokeListItems){
     pokeListItem.addEventListener('click', handleListItemClick);
 }
@@ -175,6 +196,7 @@ fetchPokeList("https://pokeapi.co/api/v2/pokemon?offset=0&limit=20")
 
 // DOM objects
 
+
 const musicContainer = document.getElementById("audio-container");
 const playBtn = document.getElementById("play");
 const prevBtn = document.getElementById("prev");
@@ -186,12 +208,14 @@ const progressContainer = document.getElementById("progress-container");
 const title = document.getElementById("title");
 const cover = document.getElementById("cover");
 
+
+
 //songs array
 
 const arrayOfSongs = ["FireRedLeafGreen-EndingTheme","PokémonThemeSong","Red-BlueTrapRemix"
     ,"RubySapphireEmerald-LittlerootTown","RubySapphireEmerald-OldaleTown"];
 
-let index = 1;
+let index = Math.floor(Math.random() * 4) + 1;
 
 // functions
 
@@ -202,6 +226,7 @@ const loadSong = (song) => {
     audio.setAttribute('duration', '0'); // set duration to 0 initially
     audio.load(); // load the audio element
 
+
 }
 
 loadSong(arrayOfSongs[index]);
@@ -211,7 +236,6 @@ const playSong = () => {
     musicContainer.classList.add('play');
     playBtn.querySelector('i.fas').classList.remove('fa-play');
     playBtn.querySelector('i.fas').classList.add('fa-pause');
-
     audio.play();
 
 
@@ -290,4 +314,5 @@ audio.addEventListener('timeupdate', updateProgress);
 progressContainer.addEventListener('click', setProgress);
 
 audio.addEventListener('ended',nextSong);
+
 

@@ -526,8 +526,8 @@ h1 {
 @font-face {
 
     font-family: "Pokemon";
-    src: url("css/fonts/pokemon_solid-webfont.woff") format('woff');
-    src: url("css/fonts/pokemon_solid-webfont.woff2") format('woff2');
+    src: url("./css/fonts/pokemon_solid-webfont.woff") format('woff');
+    src: url("./css/fonts/pokemon_solid-webfont.woff2") format('woff2');
 
 }
 

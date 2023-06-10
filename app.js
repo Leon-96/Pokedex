@@ -197,8 +197,8 @@ let index = 1;
 
 const loadSong = (song) => {
     title.innerText = song;
-    audio.src = `media/music/${song}.mp3`;
-    cover.src = `media/images/${song}.jpg`;
+    audio.src = `./media/music/${song}.mp3`;
+    cover.src = `./media/images/${song}.jpg`;
     audio.setAttribute('duration', '0'); // set duration to 0 initially
     audio.load(); // load the audio element
 

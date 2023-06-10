@@ -1,3 +1,23 @@
+.gradient-text {
+    /* Fallback: Set a background color. */
+    background-color: yellow;
+
+    /* Create the gradient. */
+    background-image: linear-gradient(90deg, #fffb02, #0046ff);
+
+    /* Set the background size and repeat properties. */
+    background-size: 100%;
+    background-repeat: repeat;
+
+    /* Use the text as a mask for the background. */
+    /* This will show the gradient as a text color rather than element bg. */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,7 +28,28 @@ body {
     display: flex;
     font-family: sans-serif;
     justify-content: center;
-    background: lightgoldenrodyellow;
+    background: #c4ffcd;
+
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+h1 {
+    margin-top: 0;
+    font-family: "Pokemon", sans-serif;
+    font-size: 6rem;
+    text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    h1 {
+        font-size: 3rem;
+    }
 }
 
 .pokedex {
@@ -479,3 +520,137 @@ body {
 .fairy {
     background: #F9AEFF;
 }
+
+
+
+@font-face {
+
+    font-family: "Pokemon";
+    src: url("css/fonts/pokemon_solid-webfont.woff") format('woff');
+    src: url("css/fonts/pokemon_solid-webfont.woff2") format('woff2');
+
+}
+
+
+.audio-container {
+    background-color: #000;
+    border-radius: 10px;
+    box-shadow: 0 20px 20px 0 rgb(255, 251, 2);
+    display: flex;
+    padding: 20px 30px;
+    position: relative;
+    margin: 100px 0;
+    z-index: 10;
+
+
+}
+
+
+.audio-info{
+    background-color: rgb(99, 139, 255);
+    border-radius: 5px 5px 0 0;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    position: absolute;
+    top: 0;
+    left: 150px;
+    width: calc(100% - 165px);
+    padding: 10px 10px 10px 10px;
+    opacity: 0;
+    transform: translateY(0%);
+    transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+    z-index: 0;
+}
+
+.audio-container.play .audio-info {
+    opacity: 1;
+    transform: translateY(-100%);
+}
+
+.audio-info h4 {
+    margin: 0;
+    text-align: center;
+}
+
+.img-container {
+    position: relative;
+    width: 110px;
+}
+
+.img-container img {
+    border-radius: 50%;
+    object-fit: cover;
+    height: 110px;
+    width: inherit;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    animation: rotate 3s linear infinite;
+    animation-play-state: paused;
+
+}
+
+.audio-container.play .img-container img {
+    animation-play-state: running;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+
+.action-btn {
+    background-color: #000;
+    border: 0;
+    color: #fffb02;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 20px;
+}
+
+.action-btn.action-btn-big {
+    color: #fffb02;
+    font-size: 30px;
+}
+
+.action-btn:focus {
+    outline: 0;
+}
+
+
+.progress-container {
+    background: #fff;
+    border-color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    height: 10px;
+    width: 100%;
+}
+
+.progress {
+    background-color: yellow;
+    border-radius: 5px;
+    height: 100%;
+    width: 0%;
+    -color: #4caf50;
+    transition: width 0.1s linear;
+}
+
+
+

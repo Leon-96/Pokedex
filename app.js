@@ -168,3 +168,126 @@ for (const pokeListItem of pokeListItems){
 
 //INITIALIZING THE APP
 fetchPokeList("https://pokeapi.co/api/v2/pokemon?offset=0&limit=20")
+
+
+
+// ***************************************** MUSIC PLAYER ****************************************************************
+
+// DOM objects
+
+const musicContainer = document.getElementById("audio-container");
+const playBtn = document.getElementById("play");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+
+const audio = document.getElementById('audio');
+const progress = document.getElementById("progress");
+const progressContainer = document.getElementById("progress-container");
+const title = document.getElementById("title");
+const cover = document.getElementById("cover");
+
+//songs array
+
+const arrayOfSongs = ["FireRedLeafGreen-EndingTheme","PokémonThemeSong","Red-BlueTrapRemix"
+    ,"RubySapphireEmerald-LittlerootTown","RubySapphireEmerald-OldaleTown"];
+
+let index = 1;
+
+// functions
+
+const loadSong = (song) => {
+    title.innerText = song;
+    audio.src = `media/music/${song}.mp3`;
+    cover.src = `media/images/${song}.jpg`;
+    audio.setAttribute('duration', '0'); // set duration to 0 initially
+    audio.load(); // load the audio element
+
+}
+
+loadSong(arrayOfSongs[index]);
+
+const playSong = () => {
+
+    musicContainer.classList.add('play');
+    playBtn.querySelector('i.fas').classList.remove('fa-play');
+    playBtn.querySelector('i.fas').classList.add('fa-pause');
+
+    audio.play();
+
+
+}
+
+
+const pauseSong = () => {
+
+    musicContainer.classList.remove('play');
+    playBtn.querySelector('i.fas').classList.remove('fa-pause');
+    playBtn.querySelector('i.fas').classList.add('fa-play');
+
+    audio.pause();
+}
+
+const prevSong = () => {
+
+    index--;
+    if (index<0){
+        index = arrayOfSongs.length - 1;
+    }
+    loadSong(arrayOfSongs[index]);
+
+    playSong();
+
+}
+
+
+const nextSong = () => {
+    index++;
+    if (index>arrayOfSongs.length-1){
+        index = 0;
+    }
+    loadSong(arrayOfSongs[index]);
+
+    playSong();
+}
+
+
+const updateProgress = (e) => {
+    const {duration, currentTime} = e.target;
+    const progressPercent = (currentTime/duration) * 100;
+    progress.style.width = `${progressPercent}%`;
+
+
+}
+
+const setProgress = (e) => {
+
+    const width = progressContainer.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audio.duration;
+
+    audio.currentTime = (clickX/width) * duration;
+
+}
+
+// event listeners
+
+playBtn.addEventListener('click', () => {
+
+    const isPlaying = musicContainer.classList.contains('play');
+    if(isPlaying){
+        pauseSong();
+    } else {
+        playSong();
+    }
+
+})
+
+prevBtn.addEventListener('click',prevSong);
+nextBtn.addEventListener('click',nextSong);
+
+audio.addEventListener('timeupdate', updateProgress);
+
+progressContainer.addEventListener('click', setProgress);
+
+audio.addEventListener('ended',nextSong);
+
